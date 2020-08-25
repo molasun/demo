@@ -1,7 +1,6 @@
 package com.example.tademo.interfaces.adapter.api;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,14 @@ import com.example.tademo.interfaces.converter.ApplicationConverter;
 import com.example.tademo.interfaces.dto.ApplicationDto;
 import com.example.tademo.usecase.ApplyApplicationUsecase;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value = "/application")
+@Api(tags = "SKI demo project", value = "SKI demo project")
 @Slf4j
 public class ApplicationRestController {
 	
@@ -29,6 +32,7 @@ public class ApplicationRestController {
 	ApplyApplicationUsecase applyApplicationUsecase;
 	
 	@PostMapping
+	@ApiOperation(value = "Create Application")
     public Response createApplicationInfo(@RequestBody ApplicationDto applicationDto){
 		
 		Application application = ApplicationConverter.toEntity(applicationDto);
@@ -59,7 +63,7 @@ public class ApplicationRestController {
     }
 	
 	@PostMapping(value = "/query/applicant/{applicantId}")
-    public Response queryApplicationByApplicant(@PathVariable String applicantId){
+    public Response queryApplicationByApplicant(@ApiParam(required = true, value = "Applicatn ID") @PathVariable String applicantId){
 		
 		List<Application> applicationList = applyApplicationUsecase.queryLeaveInfoByApplicant(applicantId);
         List<ApplicationDto> applicationDtoList = applicationList.stream()
