@@ -23,54 +23,64 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(value = "/application")
+@RequestMapping(value = "/api")
 @Api(tags = "SKI demo project", value = "SKI demo project")
 @Slf4j
 public class ApplicationRestController {
-	
+
 	@Autowired
 	ApplyApplicationUsecase applyApplicationUsecase;
-	
-	@PostMapping
+
+	@PostMapping(value = "/v1/application")
 	@ApiOperation(value = "Create Application")
-    public Response createApplicationInfo(@RequestBody ApplicationDto applicationDto){
-		
+	public Response createApplicationInfo(
+			@ApiParam(required = true, value = "Application Info") 
+			@RequestBody ApplicationDto applicationDto) {
+
 		Application application = ApplicationConverter.toEntity(applicationDto);
-			
+
 		applyApplicationUsecase.createApplicationInfo(application);
-        
+
 		return Response.ok();
-    }
-	
-	@PutMapping
-    public Response modifyApplicationInfo(@RequestBody ApplicationDto applicationDto){
-        
+	}
+
+	@PutMapping(value = "/v1/application")
+	@ApiOperation(value = "Update Application")
+	public Response modifyApplicationInfo(
+			@ApiParam(required = true, value = "Application Info") 
+			@RequestBody ApplicationDto applicationDto) {
+
 		Application application = ApplicationConverter.toEntity(applicationDto);
-		
+
 		applyApplicationUsecase.updateApplicationInfo(application);
-        
+
 		return Response.ok();
-    }
-	
-	@PostMapping(value = "/approve")
-    public Response approveApplication(@RequestBody ApplicationDto applicationDto){
-        
+	}
+
+	@PostMapping(value = "/v1/application/approve")
+	@ApiOperation(value = "Approve Application")
+	public Response approveApplication(
+			@ApiParam(required = true, value = "Application Info") 
+			@RequestBody ApplicationDto applicationDto) {
+
 		Application application = ApplicationConverter.toEntity(applicationDto);
-		
+
 		applyApplicationUsecase.approveApplicationByRule(application);
-        
+
 		return Response.ok();
-    }
-	
-	@PostMapping(value = "/query/applicant/{applicantId}")
-    public Response queryApplicationByApplicant(@ApiParam(required = true, value = "Applicatn ID") @PathVariable String applicantId){
-		
+	}
+
+	@PostMapping(value = "/v1/application/query/applicant/{applicantId}")
+	@ApiOperation(value = "Query Application By ID")
+	public Response queryApplicationByApplicant(
+			@ApiParam(name = "applicantId", required = true, value = "Applicant ID") 
+			@PathVariable String applicantId) {
+
 		List<Application> applicationList = applyApplicationUsecase.queryLeaveInfoByApplicant(applicantId);
-        List<ApplicationDto> applicationDtoList = applicationList.stream()
-        		.map(application -> ApplicationConverter.toDto(application))
-        		.collect(Collectors.toList());
-	
-        return Response.ok(applicationDtoList);
-    }
+		List<ApplicationDto> applicationDtoList = applicationList.stream()
+				.map(application -> ApplicationConverter.toDto(application)).collect(Collectors.toList());
+
+		return Response.ok(applicationDtoList);
+	}
 
 }
