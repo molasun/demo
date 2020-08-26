@@ -136,7 +136,7 @@ public class ApplicationDomainService {
     	ApplicationPo applicationPo = applicationRespositoryImpl.findById(application.getId());
     	
     	if (applicationPo == null) {
-    		throw new RuntimeException("Application does no exist");
+    		throw new RuntimeException("Application does not exist");
     	}
 		
 	}

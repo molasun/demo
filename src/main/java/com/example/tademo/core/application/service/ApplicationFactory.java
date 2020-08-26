@@ -29,33 +29,23 @@ public class ApplicationFactory {
     	applicationPo.setApplicantAddress(application.getApplicant().getApplicantAddress());
     	applicationPo.setApplicantPhoneNumber(application.getApplicant().getApplicantPhoneNumber());
     	
-    	logger.info("====done====");
-    	
-    	applicationPo.setInsuredId(application.getInsured().getInsuredId());
+      	applicationPo.setInsuredId(application.getInsured().getInsuredId());
     	applicationPo.setInsuredName(application.getInsured().getInsuredName());
     	applicationPo.setInsuredBirthDate(application.getInsured().getInsuredBirthDate());
     	applicationPo.setInsuredGender(application.getInsured().getInsuredGender());
     	applicationPo.setInsuredAddress(application.getInsured().getInsuredAddress());
     	applicationPo.setInsuredPhoneNumber(application.getInsured().getInsuredPhoneNumber());
     	
-    	logger.info("====done====");
-    	
-    	applicationPo.setInsuranceAmount(application.getInsuranceAmount());
+       	applicationPo.setInsuranceAmount(application.getInsuranceAmount());
     	applicationPo.setChannel(application.getChannel());
 
-    	logger.info("====done====");
-    	
     	applicationPo.setApplyTime(application.getApplyTime());
     	applicationPo.setModifyTime(application.getModifyTime()	);
     	applicationPo.setRejectTime(application.getRejectTime());
     	applicationPo.setApprovedTime(application.getApprovedTime());
     	
-    	logger.info("====done====");
-    	
     	applicationPo.setStatus(application.getStatus());
     	
-    	logger.info("====done====");
-
         return applicationPo;
     }
     

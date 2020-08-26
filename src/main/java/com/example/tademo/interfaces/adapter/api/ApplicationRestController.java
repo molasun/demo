@@ -3,7 +3,13 @@ package com.example.tademo.interfaces.adapter.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping(value = "/api")
 @Api(tags = "SKI demo project", value = "SKI demo project")
+@Validated
 @Slf4j
 public class ApplicationRestController {
 
@@ -34,7 +41,8 @@ public class ApplicationRestController {
 	@PostMapping(value = "/v1/application")
 	@ApiOperation(value = "Create Application")
 	public Response createApplicationInfo(
-			@ApiParam(required = true, value = "Application Info") 
+			@ApiParam(required = true, value = "Application Info")
+			@Valid
 			@RequestBody ApplicationDto applicationDto) {
 
 		Application application = ApplicationConverter.toEntity(applicationDto);
@@ -47,7 +55,8 @@ public class ApplicationRestController {
 	@PutMapping(value = "/v1/application")
 	@ApiOperation(value = "Update Application")
 	public Response modifyApplicationInfo(
-			@ApiParam(required = true, value = "Application Info") 
+			@ApiParam(required = true, value = "Application Info")
+			@Valid
 			@RequestBody ApplicationDto applicationDto) {
 
 		Application application = ApplicationConverter.toEntity(applicationDto);
@@ -60,7 +69,8 @@ public class ApplicationRestController {
 	@PostMapping(value = "/v1/application/approve")
 	@ApiOperation(value = "Approve Application")
 	public Response approveApplication(
-			@ApiParam(required = true, value = "Application Info") 
+			@ApiParam(required = true, value = "Application Info")
+			@Valid
 			@RequestBody ApplicationDto applicationDto) {
 
 		Application application = ApplicationConverter.toEntity(applicationDto);
@@ -73,12 +83,13 @@ public class ApplicationRestController {
 	@PostMapping(value = "/v1/application/query/applicant/{applicantId}")
 	@ApiOperation(value = "Query Application By ID")
 	public Response queryApplicationByApplicant(
-			@ApiParam(name = "applicantId", required = true, value = "Applicant ID") 
-			@PathVariable String applicantId) {
+			@ApiParam(name = "applicantId", required = true, value = "Applicant ID")
+			@PathVariable @NotBlank @Size(max = 10) String applicantId) {
 
 		List<Application> applicationList = applyApplicationUsecase.queryLeaveInfoByApplicant(applicantId);
 		List<ApplicationDto> applicationDtoList = applicationList.stream()
-				.map(application -> ApplicationConverter.toDto(application)).collect(Collectors.toList());
+				.map(application -> ApplicationConverter.toDto(application))
+				.collect(Collectors.toList());
 
 		return Response.ok(applicationDtoList);
 	}
