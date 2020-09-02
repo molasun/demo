@@ -23,7 +23,7 @@ public class ApplyApplicationUsecase {
     
     public void updateApplicationInfo(Application application){
     	
-        //create application
+        //update application
     	applicationDomainService.updateApplicationInfo(application);
 
     }

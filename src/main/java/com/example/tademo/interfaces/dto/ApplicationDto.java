@@ -2,7 +2,7 @@ package com.example.tademo.interfaces.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
@@ -16,28 +16,22 @@ public class ApplicationDto {
 	@ApiModelProperty(value = "id", required = true)
 	private String id;
 	
-	@NotEmpty(message = "please provide applicant info")
+	@ApiModelProperty(value = "application id")
+	private String applicationId;	
 	@ApiModelProperty(value = "applicant")
 	private ApplicantDto applicant;
-	@NotEmpty(message = "please provide insured info")
 	@ApiModelProperty(value = "insured")
 	private InsuredDto insured;
 	
 	@NotNull(message = "please provide insurace amount")
-	@ApiModelProperty(value = "insuranceAmount")
+	@ApiModelProperty(value = "insurance amount")
 	private int insuranceAmount;
-	@NotEmpty(message = "please provide channel infor")
-	@ApiModelProperty(value = "insured")
+	@NotBlank(message = "please provide channel info")
+	@ApiModelProperty(value = "channel")
 	private String channel;
 	
-	@ApiModelProperty(value = "applyTime")
-	private Date applyTime;
-	@ApiModelProperty(value = "modifyTime")
-	private Date modifyTime;
-	@ApiModelProperty(value = "rejectTime")
-	private Date rejectTime;
-	@ApiModelProperty(value = "approvedTime")
-	private Date approvedTime;
+	@ApiModelProperty(value = "status time")
+	private Date statusTime;
 	
 	@ApiModelProperty(value = "status")
 	private String status;

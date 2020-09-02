@@ -31,8 +31,6 @@ public class ApplicationDomainService {
     @Autowired
     ApplicationEventProducer eventProducer;
     
-    Logger logger = LoggerFactory.getLogger(ApplicationDomainService.class);
-    
     @Transactional
     public void createApplication(Application application) {
     	
@@ -135,10 +133,11 @@ public class ApplicationDomainService {
 		
     	ApplicationPo applicationPo = applicationRespositoryImpl.findById(application.getId());
     	
-    	if (applicationPo == null) {
-    		throw new RuntimeException("Application does not exist");
+    	if (!applicationPo.getApplicationId().equals(application.getApplicationId())) {
+    		throw new RuntimeException("Application id does not match");
     	}
 		
+    	application.setApplicationId(applicationPo.getApplicationId());
 	}
 
 }

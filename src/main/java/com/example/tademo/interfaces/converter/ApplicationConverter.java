@@ -8,14 +8,14 @@ public class ApplicationConverter {
 	public static ApplicationDto toDto(Application application) {
 		
 		ApplicationDto dto = new ApplicationDto();
+		dto.setId(application.getId());
+		dto.setApplicationId(application.getApplicationId());
 		dto.setApplicant(ApplicantConverter.toDto(application.getApplicant()));
 		dto.setInsured(InsuredConverter.toDto(application.getInsured()));
 		dto.setInsuranceAmount(application.getInsuranceAmount());
 		dto.setChannel(application.getChannel());
-		dto.setApplyTime(application.getApplyTime());
-		dto.setModifyTime(application.getModifyTime());
-		dto.setRejectTime(application.getRejectTime());
-		dto.setApprovedTime(application.getApprovedTime());
+		dto.setStatusTime(application.getStatusTime());
+		dto.setStatus(application.getStatus().toString());
 		
 		return dto;
 	}
@@ -23,6 +23,8 @@ public class ApplicationConverter {
 	public static Application toEntity(ApplicationDto dto) {
 		
 		Application application = new Application();
+		application.setId(dto.getId());
+		application.setApplicationId(dto.getApplicationId());
 		application.setApplicant(ApplicantConverter.toEntity(dto.getApplicant()));
 		application.setInsured(InsuredConverter.toEntity(dto.getInsured()));
 		application.setInsuranceAmount(dto.getInsuranceAmount());

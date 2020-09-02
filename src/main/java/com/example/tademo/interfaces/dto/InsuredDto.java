@@ -2,7 +2,7 @@ package com.example.tademo.interfaces.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,10 +12,10 @@ import lombok.Data;
 @ApiModel(description = "Insured Data")
 public class InsuredDto {
 	
-	@NotEmpty(message = "please provide insurd id")
+	@NotBlank(message = "please provide insurd id")
 	@ApiModelProperty(value = "insured id")
     private String insuredId;
-	@NotEmpty(message = "please provide insured name")
+	@NotBlank(message = "please provide insured name")
 	@ApiModelProperty(value = "insured name")
     private String insuredName;
 	@ApiModelProperty(value = "applicant birth date")

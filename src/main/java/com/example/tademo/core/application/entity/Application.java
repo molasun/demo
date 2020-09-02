@@ -12,39 +12,37 @@ import lombok.Data;
 public class Application{
 	
 	private String id;
+	private String applicationId;
 	private Applicant applicant;
 	private Insured insured;
 	private int insuranceAmount;
 	private String channel;
 	
-	private Date applyTime;
-	private Date modifyTime;
-	private Date rejectTime;
-	private Date approvedTime;
+	private Date statusTime;
 	
 	private Status status;
 	
     public Application create(){
         this.setStatus(Status.APPROVING);
-        this.setApplyTime(new Date());
+        this.setStatusTime(new Date());
         return this;
     }
     
     public Application modify(){
         this.setStatus(Status.APPROVING);
-        this.setModifyTime(new Date());
+        this.setStatusTime(new Date());
         return this;
     }
     
     public Application reject(){
         this.setStatus(Status.REJECTED);
-        this.setRejectTime(new Date());
+        this.setStatusTime(new Date());
         return this;
     }
     
     public Application finish(){
         this.setStatus(Status.APPROVED);
-        this.setApprovedTime(new Date());
+        this.setStatusTime(new Date());
         return this;
     }
 

@@ -58,7 +58,7 @@ public class ApplicationRestController {
 			@ApiParam(required = true, value = "Application Info")
 			@Valid
 			@RequestBody ApplicationDto applicationDto) {
-
+		
 		Application application = ApplicationConverter.toEntity(applicationDto);
 
 		applyApplicationUsecase.updateApplicationInfo(application);

@@ -25,6 +25,7 @@ public class ApplicationPo {
     @GeneratedValue(generator="idGenerator")
     private String id;
 	
+    private String applicationId;
     private String applicantId;
     private String applicantName;
     private Date applicantBirthDate;
@@ -42,10 +43,7 @@ public class ApplicationPo {
 	private int insuranceAmount;
 	private String channel;
 	
-	private Date applyTime;
-	private Date modifyTime;
-	private Date rejectTime;
-	private Date approvedTime;
+	private Date statusTime;
 	
     @Enumerated(EnumType.STRING)
 	private Status status;
